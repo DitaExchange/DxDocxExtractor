@@ -19,7 +19,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <PublishUrl>C:\Users\Steffen\Documents\Visual Studio 2015\Projects\</PublishUrl>
+    <PublishUrl>C:\Users\Steffen\Documents\Visual Studio 2015\Projects\DocxExtractorReleasePublish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -30,10 +30,10 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <SupportUrl>http://www.ditaexchange.com</SupportUrl>
-    <ProductName>DITA Exchange Word Publisher</ProductName>
+    <ProductName>DocxExtractor</ProductName>
     <PublisherName>DITA Exchange ApS</PublisherName>
-    <SuiteName>DITA Exchange</SuiteName>
-    <ApplicationRevision>0</ApplicationRevision>
+    <SuiteName>DitaExchange</SuiteName>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>0.9.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -63,16 +63,16 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>B0EC8F5AEF4AA2E019DE1EE8A84EB558D5F3AE65</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>DxCert012015.pfx</ManifestKeyFile>
+    <ManifestKeyFile>DxCert022015.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>
@@ -165,10 +165,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\xDisplay.xslt" />
+    <None Include="DxCert022015.pfx" />
     <None Include="Resources\Dx3.jpg" />
     <None Include="Resources\tag-64.png" />
     <None Include="Resources\DocxExtractor.xslt" />
+    <None Include="Resources\xDisplay.xslt" />
     <Content Include="tag-16.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

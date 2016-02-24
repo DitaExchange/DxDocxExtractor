@@ -125,6 +125,25 @@ To develop a custom XSLT stylesheet, use the raw Open XML output as your startin
 
 </value>
   </data>
+  <data name="richTextBox2.Text" xml:space="preserve">
+    <value>
+This tool makes it possible, without having Microsoft Word installed, to:
+* Quickly get a complete view of the Open XML content of any valid DOCX file
+* Extract tagged content as XML from the valid DOCX - either using the built-in stylesheet
+   or by adding your own custom XSLT stylesheet
+* Save the results locally
+
+The built-in stylesheet, which will be used if no custom XSLT is provided, will extract
+any text content marked up with standard Open XML content controls as well as information about 
+tag-name/alias. 
+
+Of course, using a custom stylesheet, you can design different extraction strategies and formats, as
+needed. 
+
+To develop a custom XSLT, start with the raw, flat Open XML that you can generate
+with this tool as your XML input - and use the default XSLT (provided through GitHub)
+as the XSLT starting point.</value>
+  </data>
   <data name="richTextBox1.Text" xml:space="preserve">
     <value>DitaExchange is providing this software tool, including source code, as-is to IRISS, 
 subject to the GNU GENERAL PUBLIC LICENSE  Version 3, 29 June 2007.

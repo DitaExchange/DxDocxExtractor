@@ -15,13 +15,8 @@ namespace Dx
 {
     public partial class ClientForm : Form
     {
-        #region fields
-        String tempPath = System.IO.Path.GetTempPath();
-        String resultFolder = string.Empty;
-        String XsltPath = string.Empty;
-        string PublishTo = string.Empty;
-        XmlDocument dom = new XmlDocument();
-        #endregion
+        internal XmlDocument dom = new XmlDocument();        
+     
 
         public ClientForm()
         {
@@ -51,7 +46,7 @@ namespace Dx
             try
             {
                 #region validate string input
-                if (ValidateInputFile(txtBoxDocx.Text, "DOCX") == false || ValidateInputFile(txtBoxXslt.Text, "XSLT") == false)
+                if (!ValidateInputFile(txtBoxDocx.Text, "DOCX") || !ValidateInputFile(txtBoxXslt.Text, "XSLT"))
                 {
                     return;
                 }
@@ -62,11 +57,10 @@ namespace Dx
                 Cursor = Cursors.WaitCursor;
                 DisplayHtml(null);
                 dom.RemoveAll();
-                XmlDocument XInput = new XmlDocument();
+                XmlDocument XInput;
                 XmlReader xsltReader;
                 XmlDocument xsltInput = new XmlDocument();
                 XDocument myX = new XDocument();
-                MemoryStream browserStream = new MemoryStream();
                 #endregion
 
                 #region prepare transform input
@@ -99,8 +93,8 @@ namespace Dx
                     xsltInput.LoadXml(Properties.Resources.xDisplay);
                     myX = XmTools.ToXDocument(xsltInput);
                     xsltReader = myX.CreateReader();
-                    browserStream = XmTools.TransformXml(dom.CreateNavigator(), xsltReader, null);
-                    DisplayHtml(browserStream);
+                    MemoryStream browserStream = XmTools.TransformXml(dom.CreateNavigator(), xsltReader, null);
+                    DisplayHtml(browserStream);                    
                 }                
                 #endregion
             }
@@ -115,6 +109,7 @@ namespace Dx
             finally
             {
                 Cursor = Cursors.Default;
+                buttonSaveResult.Enabled = true;
             }
         }
           
@@ -126,23 +121,20 @@ namespace Dx
                 {
                     return true; //custom XSLT is optional
                 }
+                else if (FilePath.EndsWith(FileType, StringComparison.OrdinalIgnoreCase) & File.Exists(FilePath))
+                {
+                    return true;
+                }
                 else if (FileType == "DOCX" & FilePath == "")
                 {
                     MessageBox.Show("Please select a "+FileType+" input file and try again", "DocxExtractor: Validate input");
                     return false;
                 }
-                else if (FilePath.ToLower().EndsWith(FileType.ToLower()) == true)
+                else if (!File.Exists(FilePath))
                 {
-                    if (File.Exists(FilePath) == false)
-                    {
-                        MessageBox.Show("The " + FileType + " indicated was not found. Please correct and try again", "DocxExtractor: Validate input");
-                        return false;
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                }
+                    MessageBox.Show("The " + FileType + " indicated was not found. Please correct and try again", "DocxExtractor: Validate input");
+                    return false;
+                }                               
                 else
                 {
                     MessageBox.Show("The input file " + FilePath + " is not a " + FileType + " file. Please correct and try again", "DocxExtractor: Validate input");
@@ -166,7 +158,6 @@ namespace Dx
             webBrowser1.DocumentStream = html;
         }
 
-
         private string getFile(string dlgTitle, string dlgFilter, string initDir)
         {
             using (OpenFileDialog dialog = new OpenFileDialog())
@@ -187,16 +178,12 @@ namespace Dx
 
         private void ClientForm_Load(object sender, EventArgs e)
         {
-
+            //Do nothing here.
         }
 
         private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-        }
-
-        private void label11_Click(object sender, EventArgs e)
-        {
-
+            //do nothing here
         }
 
         private void buttonSaveResult_Click(object sender, EventArgs e)
@@ -219,8 +206,7 @@ namespace Dx
             XmlDocument xsltInput = new XmlDocument();
             XDocument myX = new XDocument();
             XmlReader xsltReader;
-            MemoryStream browserStream = new MemoryStream();
-
+            
             try
             {
                 #region initialize
@@ -240,8 +226,8 @@ namespace Dx
                         xsltInput.LoadXml(Properties.Resources.xDisplay);
                         myX = XmTools.ToXDocument(xsltInput);
                         xsltReader = myX.CreateReader();
-                        browserStream = XmTools.TransformXml(dom.CreateNavigator(), xsltReader, null);
-                        DisplayHtml(browserStream);                    
+                        MemoryStream browserStream = XmTools.TransformXml(dom.CreateNavigator(), xsltReader, null);                 
+                        DisplayHtml(browserStream);                                
                     #endregion
 
                 }
@@ -260,9 +246,10 @@ namespace Dx
                 }
                 #endregion
             }
-            catch
-            { }
-
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.Message, "DocxExtractor: Show Flat OpenXML Error");
+            }
         }
                 
     }

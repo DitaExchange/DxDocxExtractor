@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace Dx
 {
-    class OpcToFlat
+    static class OpcToFlat
     {
         static XElement GetContentsAsXml(PackagePart part)
         {
@@ -69,17 +69,6 @@ namespace Dx
             }
         }
 
-        static XProcessingInstruction GetProcessingInstruction(string path)
-        {
-            if (path.ToLower().EndsWith(".docx"))
-                return new XProcessingInstruction("mso-application",
-                            "progid=\"Word.Document\"");
-            if (path.ToLower().EndsWith(".pptx"))
-                return new XProcessingInstruction("mso-application",
-                            "progid=\"PowerPoint.Show\"");
-            return null;
-        }
-
         public static XDocument ConvertOpcToFlat(string path)
         {
             using (Package package = Package.Open(path))
@@ -90,7 +79,7 @@ namespace Dx
 
                 XDocument doc = new XDocument(
                     declaration,
-                    GetProcessingInstruction(path),
+                    new XProcessingInstruction("mso-application", "progid=\"Word.Document\""),
                     new XElement(pkg + "package", new XAttribute(XNamespace.Xmlns + "pkg", pkg.ToString()),
                         package.GetParts().Select(part => GetContentsAsXml(part))
                     )
@@ -98,7 +87,7 @@ namespace Dx
                 return doc;
             }
         }
-        public static XDocument ConvertOpcToFlat(Stream myStream, string path)
+        public static XDocument ConvertOpcToFlat(Stream myStream)
         {
             using (Package package = Package.Open(myStream))
             {
@@ -108,7 +97,7 @@ namespace Dx
 
                 XDocument doc = new XDocument(
                     declaration,
-                    GetProcessingInstruction(path),
+                    new XProcessingInstruction("mso-application", "progid=\"Word.Document\""),
                     new XElement(pkg + "package", new XAttribute(XNamespace.Xmlns + "pkg", pkg.ToString()),
                         package.GetParts().Select(part => GetContentsAsXml(part))
                     )
