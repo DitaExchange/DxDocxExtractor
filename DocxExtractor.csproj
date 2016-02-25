@@ -33,7 +33,7 @@
     <ProductName>DocxExtractor</ProductName>
     <PublisherName>DITA Exchange ApS</PublisherName>
     <SuiteName>DitaExchange</SuiteName>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>0.9.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -167,9 +167,11 @@
   <ItemGroup>
     <None Include="DxCert022015.pfx" />
     <None Include="Resources\Dx3.jpg" />
-    <None Include="Resources\tag-64.png" />
     <None Include="Resources\DocxExtractor.xslt" />
     <None Include="Resources\xDisplay.xslt" />
+    <None Include="Resources\tag-64.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="tag-16.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
